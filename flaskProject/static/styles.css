@@ -1,0 +1,87 @@
+        body 
+        {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        #container 
+        {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100vh; /* 设置最小高度为视口高度，以保持提问栏在底部 */
+        }
+        #chat-container 
+        {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+        .message-container 
+        {
+            overflow: hidden;
+            margin-bottom: 10px;
+            clear: both;
+        }
+        .user-message 
+        {
+            float: right;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 15px;
+            padding: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .model-message 
+        {
+            float: left;
+            background-color: #ccc;
+            border-radius: 15px;
+            padding: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        #user-input 
+        {
+            width: 100%;
+            display: flex;
+            flex-shrink: 0;
+            padding: 10px;
+            box-sizing: border-box;
+            position: sticky;
+            bottom: 0;
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+        }
+        #ask-form 
+        {
+            display: flex;
+            width: 100%;
+        }
+        #question-input 
+        {
+            flex: 1;
+            padding: 10px;
+        }
+        #ask-button 
+        {
+            margin-left: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #888;
+            display: block;
+        }

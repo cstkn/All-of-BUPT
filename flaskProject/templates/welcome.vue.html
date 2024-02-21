@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUPT全知道</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>欢迎, {{ hashid }}</h1>
+        <div id="container">
+            <div id="chat-container">
+                <div v-for="(message, index) in messages" :key="index" :class="message.cssClass">
+                    <span class="timestamp">{{ message.timestamp }}</span>
+                    <strong>{{ message.sender }}:</strong> {{ message.content }}
+                </div>
+            </div>
+            <div id="user-input">
+                <form @submit.prevent="askQuestion">
+                    <input v-model="userQuestion" type="text" placeholder="尽情的提问我罢">
+                    <button type="submit">Biu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                username: 'YourUsername',
+                userQuestion: '',
+                messages: []
+            },
+            methods: {
+                askQuestion() {
+                    // 显示用户消息
+                    this.displayMessage('用户', this.userQuestion, 'user-message');
+
+                    // 模拟服务器响应（替换为实际的API调用）
+                    setTimeout(() => {
+                        const modelAnswer = '一个模拟的模型生成的答案。';
+                        this.displayMessage('大模型觉得', modelAnswer, 'model-message');
+                    }, 500);
+
+                    // 清空输入
+                    this.userQuestion = '';
+                },
+                displayMessage(sender, content, cssClass) {
+                    const now = new Date();
+                    const timestamp = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+                    this.messages.push({
+                        sender,
+                        content,
+                        timestamp,
+                        cssClass
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

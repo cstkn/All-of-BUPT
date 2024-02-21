@@ -1,0 +1,102 @@
+<!-- second.html -->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUPT全知道</title>
+    <link rel="stylesheet" href="../static/styles.css">
+
+</head>
+<body>
+<h1>Welcome, {{hashid}}</h1>
+    <div id="container">
+        <div id="chat-container">
+
+        </div>
+
+        <!-- 用户输入部分固定在底部 -->
+        <div id="user-input">
+            <form id="ask-form" onsubmit="askQuestion(); return false;">
+                <input type="text" id="question-input" placeholder="尽情的提问我罢">
+                <button id="ask-button" type="submit">Biu</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+      function askQuestion() {
+    // 获取用户输入的问题
+    var userQuestion = document.getElementById('question-input').value;
+    // 显示用户的问题
+    displayUserMessage("user", userQuestion, 'user-message');
+
+
+    // 创建一个新的请求对象
+    var xhr = new XMLHttpRequest();
+
+    // 配置请求
+    //xhr.open('POST', 'http://localhost:5000/ask', true);
+    xhr.open('POST', '/ask', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // 当请求完成时，处理返回的数据
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // 解析返回的JSON数据
+            var data = JSON.parse(xhr.responseText);
+
+            // 显示大模型的回答
+            displayMessage(data, 'model-message');
+        }
+    };
+
+    // 发送请求，包含一个JSON对象，其中包含用户名、问题和时间戳
+    xhr.send(JSON.stringify({
+        username: "user",  // 这里应该替换成实际的用户名
+        question: userQuestion,
+        timestamp: new Date().toISOString()  // 生成当前的时间戳
+    }));
+
+    // 清空输入框
+    document.getElementById('question-input').value = '';
+}
+
+function displayMessage(data, cssClass) {
+    var chatMessages = document.getElementById('chat-container');
+    var messageElement = document.createElement('div');
+    messageElement.classList.add('message-container', cssClass);
+
+    // 使用JSON数据中的username和answer，timestamp字段
+    messageElement.innerHTML = `<span class="timestamp">${data.timestamp}</span>
+                                <strong>${'大模型觉得'}:</strong> ${data.answer}`;
+    chatMessages.appendChild(messageElement);
+
+    // 滚动到底部
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function displayUserMessage(username, message, cssClass) {
+    var chatMessages = document.getElementById('chat-container');
+    var messageElement = document.createElement('div');
+    messageElement.classList.add('message-container', cssClass);
+
+    // 获取当前时间
+    var now = new Date();
+    var timestamp = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+
+    // 使用用户名、消息和时间戳
+    messageElement.innerHTML = `
+        <span class="timestamp">${timestamp}</span>
+        <strong>${username}:</strong> ${message}`;
+
+    chatMessages.appendChild(messageElement);
+
+    // 滚动到底部
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+    </script>
+
+</body>
+</html>
+

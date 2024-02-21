@@ -1,0 +1,22 @@
+<!-- index.html -->
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <!-- 定义一个表单，提交到/login路径，使用POST方法 -->
+    <form action="http://127.0.0.1:5000/login" method="POST">
+        <!-- 定义一个文本输入框，用于输入用户名，必填 -->
+        <p>Username: <input type="text" name="username" required></p>
+        <!-- 定义一个密码输入框，用于输入密码，必填 -->
+        <p>Password: <input type="password" name="password" required></p>
+        <!-- 定义一个提交按钮，用于提交表单 -->
+        <p><input type="submit" value="Login"></p>
+        <button type="submit" formaction="/register">Register</button>
+    </form>
+
+    <!-- 添加一个注册按钮，点击后将表单数据提交到/register路径 -->
+
+</body>
+</html>
